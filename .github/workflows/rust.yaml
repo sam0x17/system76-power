@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Dependencies
+        run: sudo apt-get update && sudo apt-get install -y libusb-1.0-0-dev
       - name: Set up Rust Toolchain
         run: curl https://sh.rustup.rs -sSf | sh -s -- -y
       - name: cargo check
