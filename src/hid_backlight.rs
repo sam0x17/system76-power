@@ -21,12 +21,9 @@ fn keyboard(device: &HidDevice, brightness: u8, color: u32) -> HidResult<()> {
     // Color correction based on model
     let dmi_vendor = fs::read_to_string("/sys/class/dmi/id/sys_vendor").unwrap_or_default();
     let dmi_model = fs::read_to_string("/sys/class/dmi/id/product_version").unwrap_or_default();
-    match (dmi_vendor.trim(), dmi_model.trim()) {
-        ("System76", "bonw15") => {
-            g = ((u16::from(g) * 0x65) / 0xFF) as u8;
-            b = ((u16::from(b) * 0x60) / 0xFF) as u8;
-        }
-        _ => {}
+    if let ("System76", "bonw15") = (dmi_vendor.trim(), dmi_model.trim()) {
+        g = ((u16::from(g) * 0x65) / 0xFF) as u8;
+        b = ((u16::from(b) * 0x60) / 0xFF) as u8;
     }
 
     // Set all LED colors
