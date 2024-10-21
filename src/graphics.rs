@@ -523,11 +523,10 @@ impl Graphics {
             let dmi_vendor = fs::read_to_string("/sys/class/dmi/id/sys_vendor").unwrap_or_default();
             let dmi_model =
                 fs::read_to_string("/sys/class/dmi/id/product_version").unwrap_or_default();
-            match (dmi_vendor.trim(), dmi_model.trim()) {
-                ("System76", "bonw15") => true,
-                ("System76", "bonw15-b") => true,
-                _ => false,
-            }
+            matches!(
+                (dmi_vendor.trim(), dmi_model.trim()),
+                ("System76", "bonw15") | ("System76", "bonw15-b")
+            )
         };
 
         {
