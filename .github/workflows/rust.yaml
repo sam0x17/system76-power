@@ -44,8 +44,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Set up Rust Toolchain
         run: curl https://sh.rustup.rs -sSf | sh -s -- -y
-      - name: cargo fmt
-        run: cargo fmt -- --check
+      - name: cargo +nightly fmt
+        run: cargo +nightly fmt -- --check
 
   cargo-doc:
     name: cargo doc
